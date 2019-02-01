@@ -61,17 +61,21 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null!=data) {
                     ArrayList<String> result;
                     result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mTextTv.setText(result.get(0));
 
-                    if(result.get(0).equals("print")){
-                        Intent print = new Intent(MainActivity.this, Print.class);
+                    switch (result.get(0)) {
+                        case "print":
+                            Intent print = new Intent(MainActivity.this, Print.class);
 
-                        startActivity(print);
-                    }
-                    else if(result.get(0).equals("settings")){
-                        Intent settings = new Intent(MainActivity.this, Settings.class);
+                            startActivity(print);
+                            break;
+                        case "settings":
+                            Intent settings = new Intent(MainActivity.this, Settings.class);
 
-                        startActivity(settings);
+                            startActivity(settings);
+                            break;
+                        default:
+                            mTextTv.setText(result.get(0));
+                            break;
                     }
 
                 }
