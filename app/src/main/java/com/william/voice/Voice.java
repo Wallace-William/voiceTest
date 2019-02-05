@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class Voice extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     TextView mTextTv;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.voice);
 
         mTextTv = findViewById(R.id.output_textView);
         mVoiceBtn = findViewById(R.id.voiceBtn);
@@ -64,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (result.get(0)) {
                         case "print":
-                            Intent print = new Intent(MainActivity.this, Print.class);
+                            Intent print = new Intent(Voice.this, Print.class);
 
                             startActivity(print);
                             break;
                         case "settings":
-                            Intent settings = new Intent(MainActivity.this, Settings.class);
+                            Intent settings = new Intent(Voice.this, Settings.class);
 
                             startActivity(settings);
                             break;
