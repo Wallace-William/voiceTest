@@ -17,27 +17,31 @@ public class Voice extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     TextView mTextTv;
-    ImageButton mVoiceBtn;
+//    ImageButton mVoiceBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.voice);
 
         mTextTv = findViewById(R.id.output_textView);
-        mVoiceBtn = findViewById(R.id.voiceBtn);
 
-        mVoiceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                speak();
-            }
-        });
+        speak();
+//        mVoiceBtn = findViewById(R.id.voiceBtn);
+//
+//        mVoiceBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                speak();
+//            }
+//        });
 
 
     }
 
-    private void speak() {
+    public void speak() {
+
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

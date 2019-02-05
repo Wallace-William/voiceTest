@@ -8,6 +8,7 @@
 
     <LinearLayout
         android:id="@+id/welcome_layout"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -22,14 +23,14 @@
             android:textAlignment="center"
             android:textSize="60sp"
             android:paddingTop="100dp"
-            android:paddingBottom="100dp"/>
+            android:paddingBottom="75dp"/>
 
         <Button
             android:id="@+id/connect_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Connect"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"/>
 
@@ -38,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Print"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"/>
 
@@ -47,9 +48,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Settings"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"/>
+
+        <ImageButton
+            android:id="@+id/voiceBtn"
+            android:layout_gravity="center"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@null"
+            android:src="@drawable/ic_mic"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Mic Image"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
