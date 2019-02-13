@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.util.Objects;
+
 public class Welcome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_welcome);
 
         Button connect_btn = findViewById(R.id.connect_btn);
@@ -24,6 +26,11 @@ public class Welcome extends AppCompatActivity {
         connect_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+
+
+
+
+
 
             }
         });
