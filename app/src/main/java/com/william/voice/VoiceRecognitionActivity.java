@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+//Attempt to make voice recognition without google dialog
 public class VoiceRecognitionActivity extends Activity implements RecognitionListener {
 
     private TextView returnedText;
