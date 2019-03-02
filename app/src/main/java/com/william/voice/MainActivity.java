@@ -24,15 +24,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextTv = findViewById(R.id.output_textView);
-        mVoiceBtn = findViewById(R.id.voiceBtn);
+        speak();
 
-        mVoiceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                speak();
-            }
-        });
+        mTextTv = findViewById(R.id.output_textView);
+//        mVoiceBtn = findViewById(R.id.voiceBtn);
+//
+//        mVoiceBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                speak();
+//            }
+//        });
 
 
     }
