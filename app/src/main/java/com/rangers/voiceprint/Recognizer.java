@@ -36,7 +36,7 @@ public class Recognizer implements RecognitionListener {
     private ProgressBar progressBar;
     private TextView output;
 
-    Instance object = new Instance();
+    private Instance object = new Instance();
 
     public static synchronized Recognizer getInstance() {
         if (instance == null) {
@@ -132,12 +132,9 @@ public class Recognizer implements RecognitionListener {
         //TODO: [FIX] CAUSES 119 Skipped frames, The application may be doing too much work on its main thread. Put in Async task?
         //TODO: Awful implementation - use getLayout() method from Navigation class
         if (this.context instanceof com.rangers.voiceprint.Setters.Set_Precision) {
-//            TextView precision = ((Activity)context).findViewById(R.id.precision_text);
             output.setText(text);
-
             object.setPrecision(text);
 
-            //TODO: Toast message to display set parameter
             Toast.makeText(this.context, "PRECISION SET TO: " + text, Toast.LENGTH_SHORT).show();
 
             //Go to next activity
@@ -145,7 +142,6 @@ public class Recognizer implements RecognitionListener {
             context.startActivity(set_infill);
         }
         else if (this.context instanceof com.rangers.voiceprint.Setters.Set_Infill) {
-//            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
             output.setText(text);
 
             object.setInfill(text);
@@ -156,7 +152,6 @@ public class Recognizer implements RecognitionListener {
             context.startActivity(set_support);
         }
         else if (this.context instanceof com.rangers.voiceprint.Setters.Set_Support) {
-//            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
             output.setText(text);
 
             object.setSupport(text);
@@ -167,7 +162,6 @@ public class Recognizer implements RecognitionListener {
             context.startActivity(set_raft);
         }
         else if (this.context instanceof com.rangers.voiceprint.Setters.Set_Raft) {
-//            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
             output.setText(text);
 
             object.setRaft(text);

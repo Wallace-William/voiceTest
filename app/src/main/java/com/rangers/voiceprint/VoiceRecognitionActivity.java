@@ -156,6 +156,7 @@ public class VoiceRecognitionActivity extends Activity implements RecognitionLis
 //        for (String result : matches)
 //            text += result + "\n";
 
+        assert matches != null;
         text += matches.get(0);
 
         output.setText(text);

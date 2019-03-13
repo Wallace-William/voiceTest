@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.rangers.voiceprint.MainActivity;
 import com.rangers.voiceprint.R;
 import com.rangers.voiceprint.Recognizer;
 
