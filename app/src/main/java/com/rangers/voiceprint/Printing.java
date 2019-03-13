@@ -1,31 +1,22 @@
-package com.rangers.voiceprint.Setters;
+package com.rangers.voiceprint;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.rangers.voiceprint.R;
-import com.rangers.voiceprint.Recognizer;
-
-public class Set_Support extends AppCompatActivity {
-
-    Recognizer voice = Recognizer.getInstance();
-
+public class Printing extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.set_support_view);
-
-        voice.initializeSpeech(this);
+        setContentView(R.layout.printing_view);
 
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        voice.kill();
-        Intent ret = new Intent(Set_Support.this, Set_Raft.class);
+        Intent ret = new Intent(Printing.this, MainActivity.class);
         startActivity(ret);
     }
 }

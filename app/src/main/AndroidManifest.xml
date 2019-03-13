@@ -48,6 +48,10 @@
 
         </activity>
 
+        <activity android:name=".Printing">
+
+        </activity>
+
     </application>
 
 </manifest>

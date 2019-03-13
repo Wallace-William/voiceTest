@@ -1,4 +1,4 @@
-package com.rangers. voiceprint;
+package com.rangers.voiceprint;
 
 import java.util.ArrayList;
 
