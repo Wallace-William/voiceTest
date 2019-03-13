@@ -9,9 +9,9 @@ import android.widget.TextView;
 public class Navigation {
 
     public void next(Context context, String text) {
-        if (context instanceof Set_Precision) {
+        if (context instanceof com.rangers.voiceprint.Setters.Set_Precision) {
             try {
-                TextView precision = ((Activity)context).findViewById(R.id.precision_text);
+                TextView precision = ((Activity)context).findViewById(R.id.output);
                 precision.setText(text);
                 Thread.sleep(2000);
 
@@ -23,10 +23,10 @@ public class Navigation {
                 e.printStackTrace();
             }
         }
-        else if (context instanceof Set_Infill) {
+        else if (context instanceof com.rangers.voiceprint.Setters.Set_Infill) {
 
             try {
-                TextView infill = ((Activity)context).findViewById(R.id.infill_text);
+                TextView infill = ((Activity)context).findViewById(R.id.output);
                 infill.setText(text);
                 wait(2000);
 //                Intent set_support = new Intent(context, Set_Support.class);

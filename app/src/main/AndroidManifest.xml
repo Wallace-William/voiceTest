@@ -25,14 +25,29 @@
 
         </activity>
 
-        <activity android:name=".Set_Precision">
+        <activity android:name=".Setters.Set_Precision">
 
         </activity>
 
-        <activity android:name=".Set_Infill">
+        <activity android:name=".Setters.Set_Infill">
 
 
         </activity>
+
+        <activity android:name=".Setters.Set_Support">
+
+
+        </activity>
+
+        <activity android:name=".Setters.Set_Raft">
+
+
+        </activity>
+
+        <activity android:name=".Confirm">
+
+        </activity>
+
     </application>
 
 </manifest>

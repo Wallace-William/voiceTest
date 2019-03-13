@@ -18,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rangers.voiceprint.Setters.Set_Raft;
+import com.rangers.voiceprint.Setters.Set_Support;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -31,6 +34,9 @@ public class Recognizer implements RecognitionListener {
     private Context context;
 
     private ProgressBar progressBar;
+    private TextView output;
+
+    Instance object = new Instance();
 
     public static synchronized Recognizer getInstance() {
         if (instance == null) {
@@ -44,6 +50,7 @@ public class Recognizer implements RecognitionListener {
         this.context = context;
 
         progressBar = ((Activity)context).findViewById(R.id.progressBar);
+        output = ((Activity)context).findViewById(R.id.output);
 
         speech = SpeechRecognizer.createSpeechRecognizer(context);
         speech.setRecognitionListener(this);
@@ -124,26 +131,52 @@ public class Recognizer implements RecognitionListener {
         //TODO: Put into another method
         //TODO: [FIX] CAUSES 119 Skipped frames, The application may be doing too much work on its main thread. Put in Async task?
         //TODO: Awful implementation - use getLayout() method from Navigation class
-        if (this.context instanceof Set_Precision) {
-            TextView precision = ((Activity)context).findViewById(R.id.precision_text);
-            precision.setText(text);
+        if (this.context instanceof com.rangers.voiceprint.Setters.Set_Precision) {
+//            TextView precision = ((Activity)context).findViewById(R.id.precision_text);
+            output.setText(text);
+
+            object.setPrecision(text);
 
             //TODO: Toast message to display set parameter
             Toast.makeText(this.context, "PRECISION SET TO: " + text, Toast.LENGTH_SHORT).show();
 
             //Go to next activity
-            Intent set_infill = new Intent(context, Set_Infill.class);
+            Intent set_infill = new Intent(context, com.rangers.voiceprint.Setters.Set_Infill.class);
             context.startActivity(set_infill);
         }
-        else if (this.context instanceof Set_Infill) {
+        else if (this.context instanceof com.rangers.voiceprint.Setters.Set_Infill) {
+//            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
+            output.setText(text);
 
+            object.setInfill(text);
 
-            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
-            infill.setText(text);
             Toast.makeText(this.context, "INFILL SET TO: " + text, Toast.LENGTH_SHORT).show();
-    //                Intent set_support = new Intent(context, Set_Support.class);
-    //                context.startActivity(set_support);
 
+            Intent set_support = new Intent(context, Set_Support.class);
+            context.startActivity(set_support);
+        }
+        else if (this.context instanceof com.rangers.voiceprint.Setters.Set_Support) {
+//            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
+            output.setText(text);
+
+            object.setSupport(text);
+
+            Toast.makeText(this.context, "SUPPORT SET TO: " + text, Toast.LENGTH_SHORT).show();
+
+            Intent set_raft = new Intent(context, Set_Raft.class);
+            context.startActivity(set_raft);
+        }
+        else if (this.context instanceof com.rangers.voiceprint.Setters.Set_Raft) {
+//            TextView infill = ((Activity)context).findViewById(R.id.infill_text);
+            output.setText(text);
+
+            object.setRaft(text);
+
+            Toast.makeText(this.context, "RAFT SET TO: " + text, Toast.LENGTH_SHORT).show();
+
+            Intent confirm = new Intent(context, Confirm.class);
+            confirm.putExtra("Instance", object);
+            context.startActivity(confirm);
         }
         else {
             Log.e("ON RESULT", "CONTEXT NOT FOUND");
