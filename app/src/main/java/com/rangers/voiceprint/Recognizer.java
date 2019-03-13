@@ -1,30 +1,36 @@
 package com.rangers.voiceprint;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 public class Recognizer implements RecognitionListener {
 
+    //Possible static leak
     private static Recognizer instance;
 
     private SpeechRecognizer speech = null;
-    private Intent recognizerIntent;
     private String LOG_TAG = "VoiceRecognitionActivity";
     private Context context;
 
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     public static synchronized Recognizer getInstance() {
         if (instance == null) {
@@ -37,11 +43,11 @@ public class Recognizer implements RecognitionListener {
     public void initializeSpeech(Context context) {
         this.context = context;
 
-        progressBar = ((Activity)context).findViewById(R.id.progressBarPrecision);
+        progressBar = ((Activity)context).findViewById(R.id.progressBar);
 
         speech = SpeechRecognizer.createSpeechRecognizer(context);
         speech.setRecognitionListener(this);
-        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"en");
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,context.getPackageName());
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
@@ -98,6 +104,12 @@ public class Recognizer implements RecognitionListener {
         String errorMessage = getErrorText(error);
         Log.d(LOG_TAG, "FAILED " + errorMessage);
 
+        if (errorMessage.equals("No match")) {
+            //Restart audio recording
+            Toast.makeText(this.context, "NO MATCH TRY AGAIN", Toast.LENGTH_SHORT).show();
+            initializeSpeech(context);
+        }
+
     }
 
     @Override
@@ -106,29 +118,35 @@ public class Recognizer implements RecognitionListener {
         ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String text = "";
 
+        assert matches != null;
         text += matches.get(0);
 
         //TODO: Put into another method
         //TODO: [FIX] CAUSES 119 Skipped frames, The application may be doing too much work on its main thread. Put in Async task?
+        //TODO: Awful implementation - use getLayout() method from Navigation class
         if (this.context instanceof Set_Precision) {
             TextView precision = ((Activity)context).findViewById(R.id.precision_text);
             precision.setText(text);
 
-    //                Intent set_infill = new Intent(context, Set_Infill.class);
-    //                context.startActivity(set_infill);
-    //                set_precision.putExtra("PRECISION", text);
+            //TODO: Toast message to display set parameter
+            Toast.makeText(this.context, "PRECISION SET TO: " + text, Toast.LENGTH_SHORT).show();
+
+            //Go to next activity
+            Intent set_infill = new Intent(context, Set_Infill.class);
+            context.startActivity(set_infill);
         }
         else if (this.context instanceof Set_Infill) {
 
 
             TextView infill = ((Activity)context).findViewById(R.id.infill_text);
             infill.setText(text);
+            Toast.makeText(this.context, "INFILL SET TO: " + text, Toast.LENGTH_SHORT).show();
     //                Intent set_support = new Intent(context, Set_Support.class);
     //                context.startActivity(set_support);
 
         }
         else {
-            Log.e("ON RESULT", "NOT SUPPOSED TO HAPPEN");
+            Log.e("ON RESULT", "CONTEXT NOT FOUND");
         }
 
     }
@@ -143,7 +161,7 @@ public class Recognizer implements RecognitionListener {
         Log.i(LOG_TAG, "onEvent");
     }
 
-    public static String getErrorText(int errorCode) {
+    private static String getErrorText(int errorCode) {
         String message;
         switch (errorCode) {
             case SpeechRecognizer.ERROR_AUDIO:

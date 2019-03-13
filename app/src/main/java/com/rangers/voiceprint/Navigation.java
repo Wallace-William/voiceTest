@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
+//TODO: Simplify Recognizer class code ... IN PROGRESS
 public class Navigation {
 
     public void next(Context context, String text) {
@@ -39,5 +40,10 @@ public class Navigation {
         else {
             Log.e("ON RESULT", "NOT SUPPOSED TO HAPPEN");
         }
+    }
+
+    //TODO: Method to get layout using current context
+    public void getLayout() {
+
     }
 }
