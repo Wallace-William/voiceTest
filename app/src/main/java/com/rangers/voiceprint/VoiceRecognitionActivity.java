@@ -1,4 +1,4 @@
-package com.william.voice;
+package com.rangers. voiceprint;
 
 import java.util.ArrayList;
 
@@ -21,10 +21,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.rangers.voiceprint.R;
+
 //Attempt to make voice recognition without dialog
 public class VoiceRecognitionActivity extends Activity implements RecognitionListener {
 
-    private TextView returnedText;
+    private TextView output;
     private ToggleButton toggleButton;
     private ProgressBar progressBar;
     private SpeechRecognizer speech = null;
@@ -34,10 +36,10 @@ public class VoiceRecognitionActivity extends Activity implements RecognitionLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voice_recognition);
-        returnedText = (TextView) findViewById(R.id.textView1);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-        toggleButton = (ToggleButton) findViewById(R.id.toggleButton1);
+        setContentView(R.layout.voice_testing);
+        output = findViewById(R.id.output);
+        progressBar = findViewById(R.id.progressBar);
+        toggleButton = findViewById(R.id.toggleButton);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             doPermAudio();
@@ -52,7 +54,7 @@ public class VoiceRecognitionActivity extends Activity implements RecognitionLis
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,this.getPackageName());
 
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3); //Unneeded
 
         toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -127,7 +129,7 @@ public class VoiceRecognitionActivity extends Activity implements RecognitionLis
     public void onError(int errorCode) {
         String errorMessage = getErrorText(errorCode);
         Log.d(LOG_TAG, "FAILED " + errorMessage);
-        returnedText.setText(errorMessage);
+        output.setText(errorMessage);
         toggleButton.setChecked(false);
     }
 
@@ -151,12 +153,15 @@ public class VoiceRecognitionActivity extends Activity implements RecognitionLis
         Log.i(LOG_TAG, "onResults");
         ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String text = "";
-        for (String result : matches)
-            text += result + "\n";
+//        for (String result : matches)
+//            text += result + "\n";
 
-        returnedText.setText(text);
+        text += matches.get(0);
+
+        output.setText(text);
     }
 
+    //Visually affects progress bar when voice detected
     @Override
     public void onRmsChanged(float rmsdB) {
         Log.i(LOG_TAG, "onRmsChanged: " + rmsdB);
